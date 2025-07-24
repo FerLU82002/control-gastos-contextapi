@@ -1,16 +1,27 @@
-import * as React from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import type { Dayjs } from 'dayjs';
 
-// Recibimos props para manejar el valor y el cambio de fecha
-export default function DatePick({ selectedDate, onDateChange }) {
+interface DatePickProps {
+  selectedDate: Dayjs | null;
+  onDateChange: (date: Dayjs | null) => void;
+}
+
+export default function DatePick({ selectedDate, onDateChange }: DatePickProps) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
         value={selectedDate}
-        onChange={onDateChange}  // Le pasamos la función que actualizará el valor de la fecha
-        className="w-full mt-1 px-3 py-2 bg-white border border-gray-200 rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+        onChange={onDateChange}
+        slotProps={{
+          /** ← Aquí estilizamos el TextField interno  */
+          textField: {
+            className:
+              'w-full border-2 border-gray-300 rounded-md p-3 mt-2 text-sm ' +
+              'focus:outline-none focus:ring-2 focus:ring-blue-600',
+          },
+        }}
       />
     </LocalizationProvider>
   );

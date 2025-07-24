@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { categories } from '../data/categories';
 import DatePick from './DatePick';
+import type { Dayjs } from 'dayjs';
 
 export default function ExpenseForm() {
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
 
   // Maneja el cambio de la fecha
-  const handleDateChange = (date) => {
+  const handleDateChange = (date: Dayjs | null) => {
     setSelectedDate(date);
   };
 
@@ -64,10 +65,7 @@ export default function ExpenseForm() {
         {/* 📅 Componente de fecha mejorado */}
         <div className="mt-4">
           <label htmlFor="expenseDate" className="text-sm">Fecha del gasto</label>
-            <DatePick
-   
-            />
-           
+            <DatePick selectedDate={selectedDate} onDateChange={handleDateChange} />
         </div>
 
         <div className="mt-8">
